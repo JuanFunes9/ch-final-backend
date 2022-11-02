@@ -14,7 +14,7 @@ const validateUserAdmin = require('../middlewares/validateUserAdmin');
 const productController = require('../controllers/product.controller');
 
 
-router.get('/', productController.getAll);
+router.get('/', [], productController.getAll);
 
 router.get('/:categorie', productController.getByCategorie)
 

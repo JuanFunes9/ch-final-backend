@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 // =========================== Middlewares =========================== //
 const validateEmailExists = require('../middlewares/validateEmailExists');
 const validateFields = require('../middlewares/validateFields');
+const validateUserAuth = require('../middlewares/validateUserAuth');
 
 // =========================== Controllers =========================== //
 const authController = require('../controllers/auth.controller');
@@ -16,8 +17,13 @@ router.post('/register', [
     check('email', 'Ingrese un email valido.').isEmail(),
     check('password', 'Ingrese una password de minimo 6 caracteres.').isLength({min: 6}),
     check('address', 'Ingrese una direccion de facturacion valida.').isLength({min: 6}),
+    check('phone', 'Ingrese un numero de telefono valido.').isLength({min: 6}),
     validateFields,
     validateEmailExists
 ], authController.register)
+
+router.get('/whoami', [
+    validateUserAuth
+], authController.whoami)
 
 module.exports = router;

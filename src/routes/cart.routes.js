@@ -26,6 +26,9 @@ router.delete('/delete-product/:prodId', [
     validateFields
 ], cartController.removeFromCart)
 
+router.post('/send-order', [
+    validateUserAuth
+], cartController.sendOrder);
 
 
 module.exports = router;

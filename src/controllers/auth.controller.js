@@ -5,10 +5,15 @@ const User = require('../models/User.model');
 
 // =========================== Services =========================== //
 const generateJWT = require('../helpers/generateJWT');
+const { registerEmail } = require('../helpers/sendEmail');
 
 const register = async (req, res) => {
-	const { email } = req.body;
+	let { email, firstName, lastName, phone, address } = req.body;
 	const newUser = new User(req.body);
+
+	//Normalizar el nombre y el apellido
+	newUser.firstName = firstName.toLowerCase().trim();
+	newUser.lastName = lastName.toLowerCase().trim();
 
 	//Encriptar la PW:
 	const salt = bcryptjs.genSaltSync();
@@ -25,16 +30,21 @@ const register = async (req, res) => {
 	//Devolver token para loggeo automatico
 	const token = await generateJWT(newUser.id);
 
-	const { firstName, lastName, address, image } = newUser;
+	//Enviar email al administrador para notificarle del nuevo registro:
+	registerEmail(newUser);
+
 
 	res.json({
 		ok: true,
+		data: null,
 		user: {
-			firstName,
-			lastName,
+			firstName: newUser.firstName,
+			lastName: newUser.lastName,
 			email,
 			address,
-			image
+			image: newUser.image,
+			cart: newUser.cart,
+			phone
 		},
 		token
 	});
@@ -49,7 +59,7 @@ const login = async (req, res) => {
 	if (!user) {
 		return res.status(404).json({
 			ok: false,
-			error: `El email: ${email} no se encuentra registrado.`
+			data: `El email: ${email} no se encuentra registrado.`
 		})
 	}
 
@@ -58,29 +68,41 @@ const login = async (req, res) => {
 	if (!validPasswd) {
 		return res.status(400).json({
 			ok: false,
-			error: `La password no es valida.`
+			data: `La password no es valida.`
 		})
 	}
 	//generar JWT
 	const token = await generateJWT(user.id);
 
 	//devoplver el user autenticado + su token
-	const { firstName, lastName, address, image } = user;
+	const { firstName, lastName, address, image, cart, phone } = user;
 	res.json({
 		ok: true,
+		data: null,
 		user: {
 			firstName,
 			lastName,
 			email,
 			address,
-			image
+			image,
+			cart,
+			phone
 		},
 		token
 	});
 
 }
 
+const whoami = async (req, res) => {
+	return res.json({
+		ok: true,
+		data: null,
+		user: req.userAuth
+	})
+}
+
 module.exports = {
 	register,
-	login
+	login,
+	whoami
 }

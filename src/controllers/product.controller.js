@@ -5,20 +5,48 @@ const Product = require('../models/Product.model');
 const uploadImg = require('../helpers/uploadImg');
 
 const getAll = async (req, res) => {
-	const products = await Product.find({ state: true });
+	const { page } = req.query;
+	const currentPage = page ? Number.parseInt(page) : 1;
+	const pageLimit = 12;
+	const products = await Product.find(
+		{ state: true },
+		{},
+		{
+			skip: (currentPage * pageLimit) - pageLimit,
+			limit: 12
+		}
+	);
+	const countProds = await Product.count({state: true});
 
 	return res.json({
 		ok: true,
+		data: null,
+		total: products.length,
+		maxPages: countProds/pageLimit,
 		products
 	})
 }
 
 const getByCategorie = async (req, res) => {
+	const { page } = req.query;
+	const currentPage = page ? Number.parseInt(page) : 1;
+	const pageLimit = 12;
 	const { categorie } = req.params;
-	const products = await Product.find({ categorie, state: true });
+	const products = await Product.find(
+		{ categorie, state: true },
+		{},
+		{
+			skip: (currentPage * pageLimit) - pageLimit,
+			limit: 12
+		}
+	);
+	const countProds = await Product.count({state: true});
 
 	return res.json({
 		ok: true,
+		data: null,
+		total: products.length,
+		maxPages: countProds/pageLimit,
 		products
 	})
 }
@@ -27,15 +55,17 @@ const getById = async (req, res) => {
 	const { id } = req.params;
 	const product = await Product.findById(id);
 
-	if(!product.state){
+	if(!product || !product.state){
 		return res.status(400).json({
 			ok: false,
-			error: `El poroducto al que desea acceder fue eliminado.`
+			data: `El poroducto al que desea acceder no existe o fue eliminado.`,
+			product: {}
 		})
 	}
 
 	return res.json({
 		ok: true,
+		data: null,
 		product
 	})
 }
@@ -46,6 +76,7 @@ const uploadProdImg = async (req, res) => {
 
 	return res.json({
 		ok: true,
+		data: null,
 		imageUrl
 	})
 }
@@ -56,6 +87,7 @@ const newProduct = async (req, res) => {
 
 	return res.json({
 		ok: true,
+		data: null,
 		newProd
 	})
 }
@@ -72,7 +104,8 @@ const deleteProduct = async (req, res) => {
 	if (!product || !product.state) {
 		return res.status(400).json({
 			ok: false,
-			error: `El producto con ID: ${id} no exite o ya fue eliminado.`
+			data: `El producto con ID: ${id} no exite o ya fue eliminado.`,
+			product: {}
 		})
 	}
 
@@ -81,6 +114,7 @@ const deleteProduct = async (req, res) => {
 
 	return res.json({
 		ok: true,
+		data: null,
 		product
 	})
 }

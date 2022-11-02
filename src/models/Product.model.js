@@ -29,8 +29,7 @@ const ProductSchema = Schema({
 			'monitores',
 			'smart-tv',
 			'notebooks',
-			'accesorios',
-			'electrodomesticos'
+			'accesorios'
 		]
 	},
 	state: {

@@ -1,0 +1,3 @@
+[2022-11-01T09:54:37.014] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined
+[2022-11-01T09:55:13.542] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined
+[2022-11-01T09:55:26.985] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined

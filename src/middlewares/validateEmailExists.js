@@ -8,7 +8,7 @@ const validateEmailExists = async (req, res, next) => {
     if (userExists) {
         return res.status(400).json({
             ok: false,
-            error: `El email: ${email} ya esta registrado.`
+            data: `El email: ${email} ya esta registrado.`
         })
     }
 

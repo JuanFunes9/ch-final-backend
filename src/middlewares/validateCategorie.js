@@ -10,14 +10,13 @@ const validateCategorie = (req, res, next) => {
 		'monitores',
 		'smart-tv',
 		'notebooks',
-		'accesorios',
-		'electrodomesticos'
+		'accesorios'
 	]
 
 	if(!categories.includes(categorie)){
         return res.status(400).json({
             ok: false,
-            error: `La categoria: ${ categorie } no existe`
+            data: `La categoria: ${ categorie } no existe`
         })
 	}
 

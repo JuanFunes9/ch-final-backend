@@ -7,24 +7,33 @@ const validateUserAuth = async (req, res, next) => {
 	if (!token) {
 		return res.status(401).json({
 			ok: false,
-			error: "No envio un token valido."
+			data: "No envio un token valido."
 		})
 	}
 
-	token = token.split(" ")[1];
-	const { uid } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+	try {
+		token = token.split(" ")[1];
+		const { uid } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-	req.uid = uid;
-	req.userAuth = await User.findById(uid);
+		req.uid = uid;
+		req.userAuth = await User.findById(uid);
 
-	if (!req.userAuth) {
-		return res.status(401).json({
+		if (!req.userAuth) {
+			return res.status(401).json({
+				ok: false,
+				data: "No envio un token valido. Usuario no existente."
+			})
+		}
+
+		next();
+	} catch (error) {
+		return res.status(500).json({
 			ok: false,
-			error: "No envio un token valido. Usuario no existente."
+			data: "Error interno en el servidor. Intente iniciar sesion nuevamente."
 		})
 	}
 
-	next();
+
 }
 
 module.exports = validateUserAuth;
