@@ -1,3 +1,6 @@
 [2022-11-01T09:54:37.014] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined
 [2022-11-01T09:55:13.542] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined
 [2022-11-01T09:55:26.985] [ERROR] errorArchivo - Error al iniciar el servidor: ReferenceError: PORT is not defined
+[2022-11-02T15:54:06.729] [ERROR] errorArchivo - Error al iniciar el servidor: TypeError: Cannot read properties of undefined (reading 'listen')
+[2022-11-02T15:54:10.904] [ERROR] errorArchivo - Error al iniciar el servidor: TypeError: Cannot read properties of undefined (reading 'listen')
+[2022-11-02T15:54:52.383] [ERROR] errorArchivo - Error al iniciar el servidor: TypeError: server.listen is not a function

@@ -3,11 +3,26 @@
 const express = require('express');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-require('dotenv').config()
+require('dotenv').config();
+const http = require('http');
+const { Server: SocketServer } = require('socket.io');
 
 const app = express();
-const loggerMiddleware = require('./middlewares/loggerMiddleware');
+
+// =========================== Socket.io Chat Config =========================== //
+const server = http.createServer(app);
+const socketController = require('./webSockets/socket.controller');
+
+const io = new SocketServer(server, {
+    cors: {
+        origin: '*'
+    }
+});
+
+io.on('connection', socketController)
+
 // =========================== Modules =========================== //
+const loggerMiddleware = require('./middlewares/loggerMiddleware');
 const authRoutes = require('./routes/auth.routes');
 const productRoutes = require('./routes/products.routes');
 const cartRoutes = require('./routes/cart.routes');
@@ -38,4 +53,4 @@ app.get('/*', (req, res) => {
     })
 })
 
-module.exports = app;
+module.exports = {app, server};

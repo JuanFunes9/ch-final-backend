@@ -1,5 +1,5 @@
 const yargs = require('yargs')(process.argv.slice(2));
-const app = require('./app');
+const {server} = require('./app');
 const mongoAtlasConnect = require('./database/db.config');
 
 // =================== Services =================== //
@@ -21,7 +21,7 @@ const argv = yargs
 
 const main = () => {
     try {
-        app.listen(argv.port, () => logger.info(`Server on PORT: ${argv.port}!`));
+        server.listen(argv.port, () => logger.info(`Server on PORT: ${argv.port}!`));
         mongoAtlasConnect().then(() => logger.info(`Connection to MongoDB Atlas succesfully!`) );
         if (argv.seed) seedDb();
     } catch (error) {

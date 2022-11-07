@@ -34,17 +34,19 @@ const register = async (req, res) => {
 	registerEmail(newUser);
 
 
-	res.json({
+	res.status(201).json({
 		ok: true,
 		data: null,
 		user: {
+			id: newUser.id,
 			firstName: newUser.firstName,
 			lastName: newUser.lastName,
 			email,
 			address,
 			image: newUser.image,
 			cart: newUser.cart,
-			phone
+			phone,
+			role: newUser.role
 		},
 		token
 	});
@@ -75,18 +77,20 @@ const login = async (req, res) => {
 	const token = await generateJWT(user.id);
 
 	//devoplver el user autenticado + su token
-	const { firstName, lastName, address, image, cart, phone } = user;
+	const { firstName, lastName, address, image, cart, phone, id, role } = user;
 	res.json({
 		ok: true,
 		data: null,
 		user: {
+			id,
 			firstName,
 			lastName,
 			email,
 			address,
 			image,
 			cart,
-			phone
+			phone,
+			role
 		},
 		token
 	});
