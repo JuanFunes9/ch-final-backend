@@ -6,9 +6,9 @@
 2. Instalar los paquetes con el comando: $npm install
 3. Levantar el servidor con alguno de los siguientes comandos:
 ~~~
-*$node src/server* || *$npm start* || *$npm run dev*
+$node src/server || $npm start || $npm run dev
 ~~~
 4. También es posible elegir el puerto de escucha del servidor y/o activar la siembra de la base de datos a través del siguiente comando:
 ~~~
-*$node src/server -p 3000 -s TRUE*
+$node src/server -p 3000 -s TRUE
 ~~~
