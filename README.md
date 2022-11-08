@@ -20,5 +20,5 @@ node src/server -p 3000 -s TRUE
 5. En el archivo .ENV encontrará una variable llamada "ADMIN_EMAIL". Cuando intente registrar un nuevo usuario, y el email ingresado sea igual al de esa variable de entorno, el usuario creado pasara a tener permisos de administrador automaticamente. A su vez, esa casilla de correo sera quien reciba el email por cada registro nuevo y por cada orden de compra generada desde la aplicación.
 
 ### Mas info
-Para información mas detallada del funcionamiento de la apicación, puede consultar el repositorio del frontend: https://github.com/JuanFunes9/ch-final-frontend.
+Para información mas detallada sobre el funcionamiento de la apicación, puede consultar el repositorio del frontend: https://github.com/JuanFunes9/ch-final-frontend.
 
