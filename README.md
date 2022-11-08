@@ -3,7 +3,10 @@
 ### Configuración básica y comandos
 
 1. Descargar el repositorio a un etorno local
-2. Instalar los paquetes con el comando: $npm install
+2. Instalar los paquetes con el comando: 
+~~~
+$npm install
+~~~
 3. Levantar el servidor con alguno de los siguientes comandos:
 ~~~
 $node src/server || $npm start || $npm run dev
