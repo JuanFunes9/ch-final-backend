@@ -1,5 +1,7 @@
 const Product = require('../models/Product.model');
 const Message = require('../models/Message.model');
+const Order = require('../models/Order.model');
+const User = require('../models/User.model');
 const { logger } = require('../helpers/logger');
 
 const productos = [
@@ -438,10 +440,16 @@ const productos = [
 	},
 ]
 
+/*
+*	La siguiente funcion formatea la base de datos. Elimina todos los registros
+*	(a exepcion de los usuarios administradores) y agrega un listado de 60 productos.
+*/
 const seedDb = async () => {
 	logger.info('Seeding database...');
 	await Product.deleteMany({});
 	await Message.deleteMany({});
+	await Order.deleteMany({});
+	await User.deleteMany({role: 'USER_ROLE'});
 
 	productos.forEach( async(prod) => {
 		const newProd = new Product(prod)
