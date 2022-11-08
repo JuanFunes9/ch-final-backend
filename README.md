@@ -12,3 +12,4 @@ $node src/server || $npm start || $npm run dev
 ~~~
 $node src/server -p 3000 -s TRUE
 ~~~
+***Nota:*** *Al pasar como argumento "-s TRUE" formatearemos la base de datos, eliminando los registros de las colecciónes de productos, mensajes y usuarios (dejando solo a los usuarios con rol de adminstradores). A la vez que se volvera a cargar una lista predetermindada de productos por defecto.*

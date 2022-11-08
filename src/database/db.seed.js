@@ -1,4 +1,5 @@
 const Product = require('../models/Product.model');
+const Message = require('../models/Message.model');
 const { logger } = require('../helpers/logger');
 
 const productos = [
@@ -439,7 +440,8 @@ const productos = [
 
 const seedDb = async () => {
 	logger.info('Seeding database...');
-	await Product.deleteMany({})
+	await Product.deleteMany({});
+	await Message.deleteMany({});
 
 	productos.forEach( async(prod) => {
 		const newProd = new Product(prod)
